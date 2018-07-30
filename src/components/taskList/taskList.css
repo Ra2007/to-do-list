@@ -1,0 +1,30 @@
+.task {
+    margin: 0 auto;
+    width: 400px;
+    text-align: left;
+    background-color: white;
+    padding: 5px;
+    border-top: 1px solid #8d8c8c;
+    border-left: 1px solid #8d8c8c;
+    border-right: 1px solid #8d8c8c;
+    cursor: pointer;
+}
+
+.task.active {
+    text-decoration: line-through;
+}
+
+.task:hover {
+    background-color: #e2e0e0;
+}
+
+.task span {
+    float: right;
+    color: #a36a6a;
+    font-size: 14px;
+    display: none;
+}
+
+.task:hover span {
+    display: flex;
+}
