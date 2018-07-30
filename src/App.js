@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import TaskList from './components/taskList/taskList';
 import AddTask from './components/addTask/addTask';
 import Footer from './components/footer/footer';
+
+import logo from './logo.svg';
+import './App.css';
 
 class App extends Component {
 
   constructor() {
     super()
-
-    this.newIndex = 5;
 
     this.state = {
       tasks: [
@@ -39,14 +38,13 @@ class App extends Component {
     };
   }
 
-  addtask = (e) => {
-    if ( e.key === 'Enter' ) {      
-      this.setState({
-        tasks: [...this.state.tasks, { title: e.currentTarget.value, isDone: false, id: this.newIndex}]
-      })
-      e.currentTarget.value = '';
-      this.newIndex++;
-    };
+  addTask = (task) => {
+        
+    this.setState({
+      tasks: [...this.state.tasks, task]
+      
+    });
+
   }
 
   deleteTask = (taskId) => {
@@ -56,8 +54,22 @@ class App extends Component {
       })
     })
   }
-
   
+  updateTask = (task) => {
+    const newTaskList = [...this.state.tasks];
+    console.log(newTaskList.indexOf(task));
+    newTaskList.forEach((t) => {
+      if (t.id === task.id) {
+        t.isDone = task.isDone;
+        return;
+      }
+    });
+
+    this.setState({
+      task: newTaskList
+    });   
+
+  }
   
   render() {
     return (
@@ -71,11 +83,12 @@ class App extends Component {
         </p>
         <div className="todolist">
           <AddTask 
-            addtask={this.addtask}
+            addTask={this.addTask}
             />
           <TaskList 
             tasks={this.state.tasks} 
-            deleteTask={this.deleteTask}           
+            deleteTask={this.deleteTask}
+            updateTask={this.updateTask}           
             />
           <Footer />
         </div>

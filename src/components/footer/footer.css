@@ -1,6 +1,6 @@
 .footer div {
     display: inline-block;
-    font-size: 10px;
+    font-size: 12px;
     padding: 3px;
 }
 
@@ -11,5 +11,9 @@
     margin: 0 auto;
     padding: 5px;
     border-radius: 0 0 5px 5px;
+}
+
+.footer .buttons button.active {
+    border: 2px solid black;
 }
    

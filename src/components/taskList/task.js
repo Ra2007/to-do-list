@@ -4,39 +4,33 @@ import './task.css';
 class Task extends Component {
 
     constructor(props) {
-        super();
+        super(props);
 
-        this.state ={
-            task: props.task,
-            };
+        // this.state ={
+        //     task: props.task,
+        //     };
         
-        this.parentDel = props.deleteTask;
+        this.parentDeleteTask = props.deleteTask;
+        this.parentUpdateTask = props.updateTask;
     }
 
-    taskStatus = (e) => {
+    taskStatus = () => {
 
-        const newTask = {
-            ...this.state.task,
-            isDone: !this.state.task.isDone
-        }
-        
-        this.setState({
-            task: newTask
-        })
-        
-        this.forceUpdate();
+        const task = {...this.props.task};
+        task.isDone = !this.isDone;
+        this.parentUpdateTask(task);
     }
 
-    deleteTask = (e) => {
-        this.parentDel(this.state.task.id);
+    deleteThisTask = () => {
+        this.parentDeleteTask(this.props.task.id);
     }
 
     render() {
         return(
-            <div className={this.state.task.isDone ? 'task active' : 'task'} >
-                <input type="checkbox" onClick={this.taskStatus.bind(this)}/>
-                {this.state.task.title}
-                <span onClick={this.deleteTask.bind(this)}>x</span>
+            <div className={this.props.task.isDone ? 'task active' : 'task'} >
+                <input type="checkbox" onClick={this.taskStatus}/>
+                    {this.props.task.title}
+                <span onClick={this.deleteThisTask}>x</span>
             </div>
         )           
     }
