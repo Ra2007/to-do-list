@@ -6,10 +6,6 @@ class Task extends Component {
     constructor(props) {
         super(props);
 
-        // this.state ={
-        //     task: props.task,
-        //     };
-        
         this.parentDeleteTask = props.deleteTask;
         this.parentUpdateTask = props.updateTask;
     }
@@ -17,7 +13,7 @@ class Task extends Component {
     taskStatus = () => {
 
         const task = {...this.props.task};
-        task.isDone = !this.isDone;
+        task.isDone = !task.isDone;
         this.parentUpdateTask(task);
     }
 
