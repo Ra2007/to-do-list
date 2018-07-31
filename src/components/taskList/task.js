@@ -24,7 +24,7 @@ class Task extends Component {
     render() {
         return(
             <div className={this.props.task.isDone ? 'task active' : 'task'} >
-                <input type="checkbox" onClick={this.taskStatus}/>
+                <input type="checkbox" defaultChecked={this.props.task.isDone} onClick={this.taskStatus}/>
                     {this.props.task.title}
                 <span onClick={this.deleteThisTask}>x</span>
             </div>

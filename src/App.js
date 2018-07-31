@@ -34,7 +34,8 @@ class App extends Component {
           title: "Пятая запись",
           isDone: false
         }
-      ]
+      ],
+      filter: "all"
     };
   }
 
@@ -57,7 +58,6 @@ class App extends Component {
   
   updateTask = (task) => {
     const newTaskList = [...this.state.tasks];
-    console.log(newTaskList.indexOf(task));
     newTaskList.forEach((t) => {
       if (t.id === task.id) {
         t.isDone = task.isDone;
@@ -70,8 +70,28 @@ class App extends Component {
     });   
 
   }
+
+  changeFilter = (filtrValue) => {
+    this.setState({
+      filter: filtrValue
+    });
+
+  }
+
+  clearCompleted = () => {
+    this.setState({
+      tasks: this.state.tasks.filter( t => t.isDone === false)
+    })
+
+  }
   
   render() {
+    let { tasks, filter } = this.state;
+    let filteredTasks = [];
+    if ( filter === "all" ) filteredTasks = tasks;
+    if ( filter === "active" ) filteredTasks = tasks.filter(t => !t.isDone);
+    if ( filter === "complited" ) filteredTasks = tasks.filter(t => t.isDone);
+
     return (
       <div className="App">
         <header className="App-header">
@@ -86,11 +106,16 @@ class App extends Component {
             addTask={this.addTask}
             />
           <TaskList 
-            tasks={this.state.tasks} 
+            tasks={filteredTasks} 
             deleteTask={this.deleteTask}
             updateTask={this.updateTask}           
             />
-          <Footer />
+          <Footer 
+            tasks={tasks}
+            filter={filter}
+            onFilterChanged={this.changeFilter}
+            clearCompleted={this.clearCompleted}
+            />
         </div>
       </div>
     );
